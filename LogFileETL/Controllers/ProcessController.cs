@@ -14,27 +14,27 @@ namespace LogFileETL.Controllers
 			if (System.IO.File.Exists(logFileInfo.FullPath))
 			{
 				string line;
-				System.IO.StreamReader inputFile = new System.IO.StreamReader(logFileInfo.FullPath);
-
-				var formattedLogPath = Path.Combine(Path.GetDirectoryName(logFileInfo.FullPath), "formatted", "SplunkReadyLog.json");
-				using (System.IO.StreamWriter outputFile = new System.IO.StreamWriter(formattedLogPath))
+				using (System.IO.StreamReader inputFile = new System.IO.StreamReader(logFileInfo.FullPath))
 				{
-					while ((line = inputFile.ReadLine()) != null)
+					var formattedLogPath = Path.Combine(Path.GetDirectoryName(logFileInfo.FullPath), "formatted", "SplunkReadyLog.json");
+					using (System.IO.StreamWriter outputFile = new System.IO.StreamWriter(formattedLogPath))
 					{
-						var jsonString = string.Empty;
-						var fieldCounter = 1;
-						var splitValues = line.Split("|");
-						jsonString += "{ ";
-						foreach (var splitValue in splitValues)
+						while ((line = inputFile.ReadLine()) != null)
 						{
-							jsonString += $"\"Field {fieldCounter}\": \"{splitValue}\", ";
-							fieldCounter++;
+							var jsonString = string.Empty;
+							var fieldCounter = 1;
+							var splitValues = line.Split("|");
+							jsonString += "{ ";
+							foreach (var splitValue in splitValues)
+							{
+								jsonString += $"\"Field {fieldCounter}\": \"{splitValue}\", ";
+								fieldCounter++;
+							}
+							jsonString += " }  ";
+							outputFile.WriteLine(jsonString);
 						}
-						jsonString += " }  ";
-						outputFile.WriteLine(jsonString);
 					}
 				}
-				inputFile.Close();
 
 				return $"File processed: {logFileInfo.FullPath}";
 			}
