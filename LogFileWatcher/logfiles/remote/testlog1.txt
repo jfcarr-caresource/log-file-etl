@@ -1,0 +1,2 @@
+2020.03.07 13:00|Error|Test log entry
+2020.03.07 13:02|Information|Test log entry
