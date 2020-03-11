@@ -16,17 +16,16 @@ namespace LogFileWatcher
 
 			fileSystemWatcher.Created += FileSystemWatcher_Created;
 			fileSystemWatcher.Changed += FileSystemWatcher_Changed;
-			// fileSystemWatcher.Deleted += FileSystemWatcher_Deleted;
-			// fileSystemWatcher.Renamed += FileSystemWatcher_Renamed;
+			fileSystemWatcher.Deleted += FileSystemWatcher_Deleted;
+			fileSystemWatcher.Renamed += FileSystemWatcher_Renamed;
 
 			fileSystemWatcher.Path = monitorTarget;
 
 			// Allow events to fire
 			fileSystemWatcher.EnableRaisingEvents = true;
 
-			Console.WriteLine("Listening...");
-			Console.WriteLine("(Press any key to exit.)");
-
+			Console.WriteLine("Listening...\n");
+			Console.WriteLine("(Press [ENTER] to exit.)");
 			Console.ReadLine();
 		}
 
@@ -50,6 +49,16 @@ namespace LogFileWatcher
 		private static void FileSystemWatcher_Changed(object sender, FileSystemEventArgs e)
 		{
 			Console.WriteLine($"A new file has been changed - {e.Name}");
+		}
+
+		private static void FileSystemWatcher_Deleted(object sender, FileSystemEventArgs e)
+		{
+			Console.WriteLine($"A file has been deleted - {e.Name}");
+		}
+
+		private static void FileSystemWatcher_Renamed(object sender, FileSystemEventArgs e)
+		{
+			Console.WriteLine($"A file has been renamed - {e.Name}");
 		}
 
 		private static string GetSetting(string sectionName, string entryName)
