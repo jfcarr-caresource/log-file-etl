@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.IO;
+using Newtonsoft.Json;
 
 namespace LogFileETL.Controllers
 {
@@ -21,17 +22,17 @@ namespace LogFileETL.Controllers
 					{
 						while ((line = inputFile.ReadLine()) != null)
 						{
-							var jsonString = string.Empty;
-							var fieldCounter = 1;
 							var splitValues = line.Split("|");
-							jsonString += "{ ";
-							foreach (var splitValue in splitValues)
+
+							var lineItemModel = new Models.LogFileContents
 							{
-								jsonString += $"\"Field {fieldCounter}\": \"{splitValue}\", ";
-								fieldCounter++;
-							}
-							jsonString += " }  ";
-							outputFile.WriteLine(jsonString);
+								EventDateTime = splitValues[0],
+								EventType = splitValues[1],
+								Details = splitValues[2]
+							};
+							var lineItemJson = JsonConvert.SerializeObject(lineItemModel);
+
+							outputFile.WriteLine(lineItemJson);
 						}
 					}
 				}
