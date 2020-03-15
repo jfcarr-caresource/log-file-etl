@@ -2,5 +2,5 @@ POST https://localhost:5001/process
 Content-Type: application/json
 
 {
-	"FullPath": "/home/jimc/projects/log-file-etl/LogFileWatcher/logfiles/drop/testlog1.txt"
+	"FullPath": "/home/jimc/projects/log-file-etl/LogFileWatcher/logfiles/drop/member/testlog-member.txt"
 }

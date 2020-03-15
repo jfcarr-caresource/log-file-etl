@@ -19,6 +19,7 @@ namespace LogFileWatcher
 			fileSystemWatcher.Deleted += FileSystemWatcher_Deleted;
 			fileSystemWatcher.Renamed += FileSystemWatcher_Renamed;
 
+			fileSystemWatcher.IncludeSubdirectories = true;
 			fileSystemWatcher.Path = monitorTarget;
 
 			// Allow events to fire
@@ -34,16 +35,19 @@ namespace LogFileWatcher
 			Console.WriteLine($"A new file has been created - {e.FullPath}");
 			Console.WriteLine($"Full path to the file is {Path.GetFullPath(e.FullPath)}");
 
-			var requestBody = new Models.LogFile { FullPath = Path.GetFullPath(e.FullPath) };
+			if (!e.FullPath.Contains("formatted"))
+			{
+				var requestBody = new Models.LogFile { FullPath = Path.GetFullPath(e.FullPath) };
 
-			var client = new RestClient(GetSetting("ETLServiceConfig", "FullRestURL"));
-			client.RemoteCertificateValidationCallback = (sender1, certificate, chain, sslPolicyErrors) => true;
-			var request = new RestRequest(Method.POST);
-			request.AddHeader("content-type", "application/json");
-			request.AddJsonBody(requestBody);
-			IRestResponse response = client.Execute(request);
+				var client = new RestClient(GetSetting("ETLServiceConfig", "FullRestURL"));
+				client.RemoteCertificateValidationCallback = (sender1, certificate, chain, sslPolicyErrors) => true;
+				var request = new RestRequest(Method.POST);
+				request.AddHeader("content-type", "application/json");
+				request.AddJsonBody(requestBody);
+				IRestResponse response = client.Execute(request);
 
-			Console.WriteLine(response.Content);
+				Console.WriteLine(response.Content);
+			}
 		}
 
 		private static void FileSystemWatcher_Changed(object sender, FileSystemEventArgs e)

@@ -12,27 +12,12 @@ namespace LogFileETL.BLL
 			{
 				if (System.IO.File.Exists(logFileInfo.FullPath))
 				{
-					string line;
-					using (System.IO.StreamReader inputFile = new System.IO.StreamReader(logFileInfo.FullPath))
+					var logFileKey = Helpers.FileSystem.GetFileKey(logFileInfo.FullPath);
+					var logFileDefinition = DefinitionManager.GetDefinition(logFileKey);
+
+					if (logFileDefinition.SplunkOutput)
 					{
-						var formattedLogPath = Path.Combine(Path.GetDirectoryName(logFileInfo.FullPath), "formatted", "SplunkReadyLog.json");
-						using (System.IO.StreamWriter outputFile = new System.IO.StreamWriter(formattedLogPath))
-						{
-							while ((line = inputFile.ReadLine()) != null)
-							{
-								var splitValues = line.Split("|");
-
-								var lineItemModel = new Models.LogFileContents
-								{
-									EventDateTime = splitValues[0],
-									EventType = splitValues[1],
-									Details = splitValues[2]
-								};
-								var lineItemJson = JsonConvert.SerializeObject(lineItemModel);
-
-								outputFile.WriteLine(lineItemJson);
-							}
-						}
+						SplunkOutput(logFileInfo);
 					}
 
 					return $"File processed: {logFileInfo.FullPath}";
@@ -44,10 +29,51 @@ namespace LogFileETL.BLL
 			}
 			catch (Exception ex)
 			{
-				var logger = new Logger();
-				logger.LogMessage(ex);
+				Logger.LogMessage(ex);
 
 				return ex.Message;
+			}
+		}
+
+		public string SplunkOutput(Models.LogFile logFileInfo)
+		{
+			try
+			{
+				var formattedLogPath = Path.Combine(Path.GetDirectoryName(logFileInfo.FullPath), "formatted");
+
+				using (System.IO.StreamReader inputFile = new System.IO.StreamReader(logFileInfo.FullPath))
+				{
+					var di = Directory.CreateDirectory(formattedLogPath);
+
+					formattedLogPath = Path.Combine(formattedLogPath, "SplunkReadyLog.json");
+
+					using (System.IO.StreamWriter outputFile = new System.IO.StreamWriter(formattedLogPath))
+					{
+						string line;
+						while ((line = inputFile.ReadLine()) != null)
+						{
+							var splitValues = line.Split("|");
+
+							var lineItemModel = new Models.LogFileContents
+							{
+								EventDateTime = splitValues[0],
+								EventType = splitValues[1],
+								Details = splitValues[2]
+							};
+							var lineItemJson = JsonConvert.SerializeObject(lineItemModel);
+
+							outputFile.WriteLine(lineItemJson);
+						}
+					}
+				}
+
+				return formattedLogPath;
+			}
+			catch (Exception ex)
+			{
+				Logger.LogMessage(ex);
+
+				return string.Empty;
 			}
 		}
 	}
