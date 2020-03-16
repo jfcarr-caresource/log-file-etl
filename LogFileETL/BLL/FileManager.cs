@@ -20,6 +20,11 @@ namespace LogFileETL.BLL
 						SplunkOutput(logFileInfo);
 					}
 
+					if (logFileDefinition.DatabaseOutput)
+					{
+						DatabaseOutput(logFileInfo);
+					}
+
 					return $"File processed: {logFileInfo.FullPath}";
 				}
 				else
@@ -75,6 +80,11 @@ namespace LogFileETL.BLL
 
 				return string.Empty;
 			}
+		}
+
+		public bool DatabaseOutput(Models.LogFile logFileInfo)
+		{
+			return DataAdapters.Archive.DatabaseOutput(logFileInfo);
 		}
 	}
 }

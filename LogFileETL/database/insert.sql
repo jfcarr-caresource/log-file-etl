@@ -1,1 +1,1 @@
-INSERT INTO definitions (logfilekey,splunkoutput,databaseoutput) VALUES ('member',1,0);
+INSERT INTO definitions (logfilekey,splunkoutput,databaseoutput) VALUES ('member',1,1);
