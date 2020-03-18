@@ -7,6 +7,7 @@ OPTIMIZE_OUTPUT_VHDL   = NO
 EXTRACT_ALL            = YES
 EXTRACT_PRIVATE        = YES
 EXTRACT_STATIC         = YES
+SOURCE_BROWSER         = YES
 HIDE_SCOPE_NAMES       = YES
 INPUT                  = LogFileETL \
                          LogFileETL_Tests \

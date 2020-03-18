@@ -6,6 +6,11 @@ namespace LogFileETL.BLL
 {
 	public class FileManager
 	{
+		/// <summary>
+		/// Determine which output formats need to be generated.
+		/// </summary>
+		/// <param name="logFileInfo"></param>
+		/// <returns></returns>
 		public string FileProcessor(Models.LogFile logFileInfo)
 		{
 			try
@@ -40,6 +45,11 @@ namespace LogFileETL.BLL
 			}
 		}
 
+		/// <summary>
+		/// Generate Splunk-friendly output.
+		/// </summary>
+		/// <param name="logFileInfo"></param>
+		/// <returns></returns>
 		public string SplunkOutput(Models.LogFile logFileInfo)
 		{
 			try
@@ -82,6 +92,11 @@ namespace LogFileETL.BLL
 			}
 		}
 
+		/// <summary>
+		/// Write log file contents to database.
+		/// </summary>
+		/// <param name="logFileInfo"></param>
+		/// <returns></returns>
 		public bool DatabaseOutput(Models.LogFile logFileInfo)
 		{
 			return DataAdapters.Archive.DatabaseOutput(logFileInfo);

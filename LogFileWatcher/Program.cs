@@ -31,7 +31,7 @@ namespace LogFileWatcher
 		}
 
 		/// <summary>
-		/// Event triggered when a new log file is created/dropped.
+		/// Event triggered when a new log file is created/dropped.  It calls the LogFileETL service with the file details.
 		/// </summary>
 		/// <param name="sender"></param>
 		/// <param name="e"></param>
@@ -68,6 +68,14 @@ namespace LogFileWatcher
 			Console.WriteLine($"A new file has been changed - {e.Name}");
 		}
 
+		/// <summary>
+		/// Event triggered when an existing log file is deleted.
+		/// </summary>
+		/// <remarks>
+		/// Nothing implemented here except a status message to the console.
+		/// </remarks>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
 		private static void FileSystemWatcher_Deleted(object sender, FileSystemEventArgs e)
 		{
 			Console.WriteLine($"A file has been deleted - {e.Name}");
