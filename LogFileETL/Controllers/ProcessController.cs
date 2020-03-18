@@ -8,7 +8,11 @@ namespace LogFileETL.Controllers
 	[ApiController]
 	public class ProcessController : ControllerBase
 	{
-		// POST process
+		/// <summary>
+		/// POST LogFile request
+		/// </summary>
+		/// <param name="logFileInfo"></param>
+		/// <returns>Status message</returns>
 		[HttpPost]
 		public string Post([FromBody] Models.LogFile logFileInfo)
 		{

@@ -6,6 +6,11 @@ namespace LogFileETL.DataAdapters
 {
 	public static class Archive
 	{
+		/// <summary>
+		/// Read LogFile contents and write to database archive table.
+		/// </summary>
+		/// <param name="logFileInfo"></param>
+		/// <returns></returns>
 		public static bool DatabaseOutput(Models.LogFile logFileInfo)
 		{
 			try

@@ -30,6 +30,11 @@ namespace LogFileWatcher
 			Console.ReadLine();
 		}
 
+		/// <summary>
+		/// Event triggered when a new log file is created/dropped.
+		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
 		private static void FileSystemWatcher_Created(object sender, FileSystemEventArgs e)
 		{
 			Console.WriteLine($"A new file has been created - {e.FullPath}");
@@ -50,6 +55,14 @@ namespace LogFileWatcher
 			}
 		}
 
+		/// <summary>
+		/// Event triggered when an existing log file is modified.
+		/// </summary>
+		/// <remarks>
+		/// Nothing implemented here except a status message to the console.
+		/// </remarks>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
 		private static void FileSystemWatcher_Changed(object sender, FileSystemEventArgs e)
 		{
 			Console.WriteLine($"A new file has been changed - {e.Name}");
@@ -60,11 +73,25 @@ namespace LogFileWatcher
 			Console.WriteLine($"A file has been deleted - {e.Name}");
 		}
 
+		/// <summary>
+		/// Event triggered when an existing log file is renamed.
+		/// </summary>
+		/// <remarks>
+		/// Nothing implemented here except a status message to the console.
+		/// </remarks>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
 		private static void FileSystemWatcher_Renamed(object sender, FileSystemEventArgs e)
 		{
 			Console.WriteLine($"A file has been renamed - {e.Name}");
 		}
 
+		/// <summary>
+		/// Retrieve a setting value from appsettings.
+		/// </summary>
+		/// <param name="sectionName"></param>
+		/// <param name="entryName"></param>
+		/// <returns></returns>
 		private static string GetSetting(string sectionName, string entryName)
 		{
 			var builder = new ConfigurationBuilder()

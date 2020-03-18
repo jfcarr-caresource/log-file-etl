@@ -5,6 +5,9 @@ namespace LogFileETL_Tests
 {
 	public class FileSystem
 	{
+		/// <summary>
+		/// Test GetFileKey method in LogFileETL.Helpers.FileSystem
+		/// </summary>
 		[Fact]
 		public void GetFileKey()
 		{

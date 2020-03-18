@@ -5,6 +5,11 @@ namespace LogFileETL.DataAdapters
 {
 	public static class Definitions
 	{
+		/// <summary>
+		/// Retrieve log file definition.
+		/// </summary>
+		/// <param name="fileKey"></param>
+		/// <returns></returns>
 		public static Models.LogFileDefinition GetDefinition(string fileKey)
 		{
 			var returnModel = new Models.LogFileDefinition();
