@@ -9,6 +9,7 @@ drop:
 
 purge:
 	@rm -rf logfiles/drop/member/*
+	@mkdir -p logfiles/drop/member
 
 tree:
 	@clear
