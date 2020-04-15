@@ -9,4 +9,4 @@ gen-docs:
 	doxygen
 
 view-docs:
-	$(BROWSER) docs/html/index.html &
+	$(BROWSER) docs/index.html &

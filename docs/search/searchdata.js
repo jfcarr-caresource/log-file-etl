@@ -5,7 +5,7 @@ var indexSectionsWithContent =
   2: "l",
   3: "adflprs",
   4: "cdfglmps",
-  5: "defls",
+  5: "deflps",
   6: "c",
   7: "l"
 };
