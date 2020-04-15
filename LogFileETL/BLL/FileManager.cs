@@ -17,8 +17,8 @@ namespace LogFileETL.BLL
 			{
 				if (System.IO.File.Exists(logFileInfo.FullPath))
 				{
-					var logFileKey = Helpers.FileSystem.GetFileKey(logFileInfo.FullPath);
-					var logFileDefinition = DefinitionManager.GetDefinition(logFileKey);
+					var logFileIdent = Helpers.FileSystem.GetFileIdentifiers(logFileInfo.FullPath);
+					var logFileDefinition = DefinitionManager.GetDefinition(logFileIdent.ProcessName);
 
 					if (logFileDefinition.SplunkOutput)
 					{

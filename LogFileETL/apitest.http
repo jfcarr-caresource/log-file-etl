@@ -4,3 +4,12 @@ Content-Type: application/json
 {
 	"FullPath": "/home/jimc/projects/log-file-etl/LogFileWatcher/logfiles/drop/member/testlog-member.txt"
 }
+
+###
+
+POST https://localhost:5001/process
+Content-Type: application/json
+
+{
+	"FullPath": "/home/jimc/projects/log-file-etl/LogFileWatcher/logfiles/drop/member/CSC_PROD_Member_FileLog_20200409060315.txt"
+}
